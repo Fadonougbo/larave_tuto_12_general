@@ -7,8 +7,9 @@ use Inertia\Inertia;
 
 Route::get('/', function () {
 
-    Helper::getDate();
-    Helper::getDate();
+    dump(Helper::getID());
+    dump(Helper::getID());
+    dump(Helper::getID());
     //User::factory()->create();
     return 'okok2';
 
