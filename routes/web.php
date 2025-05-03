@@ -1,11 +1,15 @@
 <?php
 
+use Facades\App\Helper\Helper;
 use App\Models\User;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
 Route::get('/', function () {
-    User::factory()->create();
+
+    Helper::getDate();
+    Helper::getDate();
+    //User::factory()->create();
     return 'okok2';
 
 })->name('home');
@@ -25,9 +29,11 @@ Route::get('/user/{slug}/{user}', function (Request $request,string $slug,User $
 Route::redirect('/bigdata','/');
 
 Route::middleware(['auth', 'verified'])->group(function () {
+    
     Route::get('dashboard', function () {
         return Inertia::render('dashboard');
     })->name('dashboard');
+    
 });
 
 require __DIR__.'/settings.php';
