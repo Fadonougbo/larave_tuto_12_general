@@ -2,14 +2,23 @@
 
 use Facades\App\Helper\Helper;
 use App\Models\User;
+use Illuminate\Support\Facades\Artisan;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
 Route::get('/', function () {
+/* 
+    defer(function(){
+        if(connection_aborted()){
+            Artisan::call('make:controller EssaiController');
+        }
+    }); */
 
     dump(Helper::getID());
     dump(Helper::getID());
     dump(Helper::getID());
+
     //User::factory()->create();
     return 'okok2';
 
