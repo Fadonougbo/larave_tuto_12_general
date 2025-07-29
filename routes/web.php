@@ -2,27 +2,26 @@
 
 use Facades\App\Helper\Helper;
 use App\Models\User;
+use Illuminate\Foundation\Http\Middleware\HandlePrecognitiveRequests;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
-Route::get('/', function () {
-/* 
-    defer(function(){
-        if(connection_aborted()){
-            Artisan::call('make:controller EssaiController');
-        }
-    }); */
-
-    dump(Helper::getID());
-    dump(Helper::getID());
-    dump(Helper::getID());
-
-    //User::factory()->create();
-    return 'okok2';
+Route::get('/', function (Request $request) {
+    return view('home');
 
 })->name('home');
+
+Route::get('/data', function (Request $request) {
+    // $request->validate([
+    //     'name'=>['required']
+    // ]);
+    
+    return response()->json(['pong'=>'isPong']);
+
+})->middleware(HandlePrecognitiveRequests::class);
 
 Route::get('/user/{slug}/{user}', function (Request $request,string $slug,User $user) {
    
