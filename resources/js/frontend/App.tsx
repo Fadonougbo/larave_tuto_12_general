@@ -1,35 +1,70 @@
 import { createRoot } from 'react-dom/client'
-import {define} from '@mindemangou/magiccomponents'
-import {ReactAdaptater} from '@mindemangou/magiccomponents-react'
+import {ConnectedParams, define} from '@mindemangou/magiccomponents'
+import {ReactAdapter} from '@mindemangou/magiccomponents-react'
 import { useForm } from 'laravel-precognition-react';
 import { useActionState, useState } from 'react';
 import { useFormStatus } from 'react-dom';
+import useSWR from 'swr'
 
-const Home=({name})=>{
+
+type Data={
+    id:number,
+    name:string,
+    email:string
+}
 
 
-    const {data,submit,setData,errors,hasErrors}=useForm('get','/data',{})
-        const [mydata,setMyData]=useState(data)
+const getData=async (url:string)=>{
+    const response=await fetch(url,{
+        headers:{
+            "Accept":'application/json'
+        }
+    })
 
-    
-    const onSubmit=async (formData:FormData)=>{
-         const res=await submit({adapter:'fetch'})
-        //console.log(res)
-    }
-    
-    console.log(mydata)
+    const data=await response.json()
+
+    return data
+}
+const Home=({users})=>{
+
+
+    // const {submit,errors}=useForm('get','/data',{})
+
+    // const {data,error,isLoading,mutate}=useSWR('/data',getData)
+
+    // console.log(data)
+    // const onSubmit=async (formData:FormData)=>{
+    //      const res=await submit({adapter:'fetch'})
+    //     //console.log(res)
+    // }
+    // if(error) return 'Fetch Error '
+    // if(isLoading) return 'Loading ....'
+
+    // const users=data as Data[]
+
+
+     const userList=users.map((user)=>(<li key={user.id} >{user.name}</li>))
+
+
+    // const handleClick=()=>{
+    //     mutate([...data,{id:6,name:'gaut',email:'gaut@gaut.com'}])
+    // }
 
     return <>
-            <form action={onSubmit}>
+           
+
+            <ol>{userList}</ol>
+            {/* <form action={onSubmit}>
                 <input type="text" name="ville" id="" />
                 <button>Click me</button>
             </form>
-        <h1>Home hello {name} :)</h1>
+        <h1>Home hello {name} :)</h1> */}
 
     </>
 }
 
-define({tagname:'home-home',adaptater:ReactAdaptater},({element,props,slots})=>{
-    createRoot(element).render(<Home name={props.name}  />)
+define({tagname:'home-home',adapter:ReactAdapter},({element,props,slots}:ConnectedParams<{users:Data[]}>)=>{
+    console.log(props)
+     createRoot(element).render(<Home users={props.users}  />)
 })
 

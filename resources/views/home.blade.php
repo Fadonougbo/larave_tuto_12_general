@@ -9,8 +9,10 @@
 </head>
 <body>
     @csrf
-    <home-home data-name="doe">
+    <home-home data-users="{{ $users }}">
+
         Loading....
+       
     </home-home>
 
 </body>

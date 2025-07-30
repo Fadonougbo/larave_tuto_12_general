@@ -10,7 +10,10 @@ use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
 Route::get('/', function (Request $request) {
-    return view('home');
+
+    $users=User::all();
+
+    return view('home',['users'=>$users]);
 
 })->name('home');
 
@@ -19,7 +22,7 @@ Route::get('/data', function (Request $request) {
     //     'name'=>['required']
     // ]);
     
-    return response()->json(['pong'=>'isPong']);
+    return User::all();
 
 })->middleware(HandlePrecognitiveRequests::class);
 
