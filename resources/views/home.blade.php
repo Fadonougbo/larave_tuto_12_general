@@ -8,6 +8,7 @@
     @vite(['resources/js/frontend/index.ts','resources/css/app.css','resources/js/frontend/App.tsx'])
 </head>
 <body>
+    
     @csrf
     <home-home data-users="{{ $users }}">
 

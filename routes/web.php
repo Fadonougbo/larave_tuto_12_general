@@ -1,19 +1,26 @@
 <?php
 
-use Facades\App\Helper\Helper;
 use App\Models\User;
 use Illuminate\Foundation\Http\Middleware\HandlePrecognitiveRequests;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Artisan;
-use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
+
+
+
+Route::get('/r', function (Request $request) {
+
+    $users=User::all();
+
+    return view('r');
+
+})->name('r');
 
 Route::get('/', function (Request $request) {
 
     $users=User::all();
 
-    return view('home',['users'=>$users]);
+    return $request->header('ApiRequest')?$users:view('home',['users'=>$users]);
 
 })->name('home');
 
@@ -22,7 +29,7 @@ Route::get('/data', function (Request $request) {
     //     'name'=>['required']
     // ]);
     
-    return User::all();
+    return [User::all(),$request->header('isAjax')];
 
 })->middleware(HandlePrecognitiveRequests::class);
 

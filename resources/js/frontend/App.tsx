@@ -25,7 +25,7 @@ const getData=async (url:string)=>{
 
     return data
 }
-const Home=({users})=>{
+export const Home=({users})=>{
 
 
     // const {submit,errors}=useForm('get','/data',{})
@@ -60,11 +60,20 @@ const Home=({users})=>{
             </form>
         <h1>Home hello {name} :)</h1> */}
 
-    </>
+    </> 
 }
 
-define({tagname:'home-home',adapter:ReactAdapter},({element,props,slots}:ConnectedParams<{users:Data[]}>)=>{
-    console.log(props)
-     createRoot(element).render(<Home users={props.users}  />)
+define({tagname:'home-home',adapter:ReactAdapter},async ({element,props,slots}:ConnectedParams<{users:Data[]}>)=>{
+     const response=await fetch('/',{
+        headers:{
+            "Accept":'application/json',
+            "ApiRequest":"yes"
+        }
+    })
+
+    const data=await response.json()
+
+    //console.log(data) 
+     //createRoot(element).render(<Home users={props.users}  />)
 })
 
